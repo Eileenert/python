@@ -78,7 +78,7 @@ def program(): #main program
                 #choose the type of number we want
                 print("""Do you want           
                     1.whole number
-                    2.number to decimal""")
+                    2.decimal number""")
 
                 try:            #To be sure the user type 1 or 2 and not something else
                     global intOrFloat
