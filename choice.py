@@ -1,8 +1,24 @@
 import os
 from random import choice, randint, uniform
 
+redo = True
+
 
 def program():  # main program
+
+    def restart():  # Choose to restart or no
+        global yn
+        yn = input("Restart? y/n : ")
+        if yn.lower() == "n":
+            # Change the type
+            change = input(
+                "To change the type write \"change\" else press enter to continue: ")
+            if change.lower() == "change":
+                program()
+            else:  # Exit
+                print("Bye")
+                global redo
+                redo = False
 
     def choose_type():  # Choose what we want to do
         print("""Choose the type :
@@ -26,50 +42,27 @@ def program():  # main program
     if Type == 1:  # First thing we can do
         x = input("write the different propositions separated by a comma \",\": ")
         x = x.split(",")
-        while True:
+        while redo:
             y = choice(x)
             print(y)
-            yn = input("Restart? y/n : ")  # Choose to restart or no
-            if yn == "n":
-                change = input(
-                    "To change the type write \"change\" else press enter to continue: ")
-                if change == "change":
-                    program()
-                else:
-                    print("Bye")
-                    break
+            restart()
+
     elif Type == 2:  # Second thing we can do
-        while True:
+        while redo:
             x = input(
                 "write the different propositions separated by a comma \",\": ")
             x = x.split(",")
             y = choice(x)
             print(y)
-            yn = input("Restart? y/n : ")  # Choose to restart or no
-            if yn == "n":
-                change = input(
-                    "To change the type write \"change\" else press enter to continue: ")
-                if change == "change":
-                    program()
-                else:
-                    print("Bye")
-                    break
+            restart()
     elif Type == 3:  # Third thing we can do
 
         def random_number(randint_or_uniform):
-            while True:
+            while redo:
                 # Take a random number
                 z = randint_or_uniform(number[0], number[1])
                 print(round(z, 3))
-                yn = input("Restart? y/n : ")  # Choose to restart or no
-                if yn == "n":
-                    change = input(
-                        "To change the type write \"change\" else press enter to continue: ")
-                    if change == "change":
-                        program()
-                    else:
-                        print("Bye")
-                        break
+                restart()
 
         def number_between():
             # choose the type of number we want
