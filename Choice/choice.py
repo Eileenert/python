@@ -1,10 +1,6 @@
 import os
 from random import choice, randint, uniform
 import pickle
-os.chdir("c:/Users/Pink/Documents/Code/python/Choice")
-
-
-
 
 
 def program():  # main program
