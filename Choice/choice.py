@@ -7,6 +7,7 @@ def program():  # main program
     global redo
     redo = True
     def restart():  # Choose to restart or no
+        global redo
         global yn
         yn = input("Restart? y/n :")
         if yn.lower() == "n":
@@ -16,7 +17,6 @@ def program():  # main program
                 program()
             else:  # Exit
                 print("\n Bye")
-                global redo
                 redo = False
         elif yn.lower() == "y":
             pass
