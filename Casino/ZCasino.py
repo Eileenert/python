@@ -30,8 +30,26 @@ def new_game():
         print("Please enter \"n\" or \"p\"")
         new_game()
             
+
+def rules():
+    seeRules=input("Do you want to see the rules? (y/n): ")
+    if seeRules.lower()== "y":
+        print("""
+A winning number between 1 and 10 will be drawn randomly.
+If you have bet the same number as the winning number you win triple the amount wagered
+otherwise if the two numbers are both even or odd (so the same color) the gain is 50% of the amount wagered. 
+If this is not the case you lose your bet. 
+""")
+        new_game()
+    elif seeRules.lower()== "n":
+        new_game()
+    else:
+        print("Please enter y or n")
+        rules()
     
-new_game()           
+
+
+rules()        
 
 
 print(f"You sit at a table with {money}$")
