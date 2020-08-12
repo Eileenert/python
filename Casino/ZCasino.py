@@ -4,10 +4,6 @@ from math import ceil
 import pickle
 
 
-os.chdir("./python/Casino")
-
-
-
 def new_game():
     global money
     global my_pickler
