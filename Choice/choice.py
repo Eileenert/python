@@ -12,20 +12,21 @@ def program():  # main program
         yn = input("Restart? y/n :")
         if yn.lower() == "n":
             # Change the type
-            change = input("\n To change the type write \"change\" else press enter to continue: ")
+            change = input("\nTo change the type write \"change\" else press enter to continue: ")
             if change.lower() == "change":
                 program()
             else:  # Exit
                 print("\n Bye")
+                
                 redo = False
         elif yn.lower() == "y":
             pass
         else:
-            print('\n Please enter "y" or "n" ')
+            print('\nPlease enter "y" or "n" ')
             restart()
 
     def choose_type():  # Choose what we want to do
-        print("""\n Choose the type :
+        print("""\nChoose the type :
             1.Reuse the same list(Create one, or take one already saved)
             2.Different list each time
             3.Random number \n""")
@@ -46,7 +47,7 @@ def program():  # main program
     if Type == 1:  # First thing we can do
         
         def display_randomly_list(): #display the items of the list choose below randomly
-            print("\n Now an item will be choose randomly...")
+            print("\nNow an item will be choose randomly...")
             while redo:
                 y = choice( dict_of_list[select])
                 print(f"\n{y}\n")
@@ -64,18 +65,22 @@ def program():  # main program
             except:
                 dict_of_list={}  
             
-            create_or_saved= input('\n If you want to create a list press "c", if you want to see the saved one press "s": ') #We choose if we want to create a new list or see the existants ones
+            create_or_saved= input('\nIf you want to create a list press "c", if you want to see the saved one press "s": ') #We choose if we want to create a new list or see the existants ones
 
             if create_or_saved.lower()== "c": #If the user press c
                 global name
-                name=input("\n Please enter the name of the list: ")  #choose the name of the new list
+                name=input("\nPlease enter the name of the list you want to create: ")  #choose the name of the new list
                 name= name.lower()
 
+                if name in dict_of_list:    #To be sure that an existing list does not have the same name to avoid errors
+                    print("\nPlease enter a non-existent name")
+                    chooseTheList()
+
                 global listItems
-                listItems=input("\n Please enter the items of the list separated by a comma \",\": ") #We enter the list items
+                listItems=input("\nPlease enter the items of the list separated by a comma \",\": ") #We enter the list items
                 listItems= listItems.split(",")
 
-                print(f"\n The name of the list is {name} and the items are =")  #We show the user his list
+                print(f"\nThe name of the list is {name} and the items are =")  #We show the user his list
                 for x in listItems:
                     print(x)
                 
@@ -93,53 +98,49 @@ def program():  # main program
 
             elif create_or_saved.lower()== "s": #If the user press s
                 if len(dict_of_list)==0:       #Check if their is somethong in the dictionary
-                    print("\n There is no list already saved")
+                    print("\nThere is no list already saved")
                     chooseTheList()
 
-                print("\n List saved: ")     #Show all the list available 
+                print("\nList saved: ")     #Show all the list available 
                 for x,y in dict_of_list.items():
                     print(x ,"= ",y)
                 
-                modify= input('\n If you want to modify a list press "m" else press enter: ')  #if the user want to modify the dictionary
+                modify= input('\nIf you want to delete a list press "d" else press enter to choose the list: ')  #if the user want to modify the dictionary
 
-                if modify.lower()=="m":
-                    def modify_list():
-                        change=input('\n To delete a list press "d", to continue press "c": ') #The user choose what to modify in the dictionary
+                def delete_list():
+                    if modify.lower()=="d":
+                        global name_delete
+                        name_delete= input("\nEnter the name of the list to delete: ")
+                        if name_delete.lower() in dict_of_list:     #verify that the list exist
+                            dict_of_list.pop(name_delete)    #delete the list
+
+                            with open("dictList", "wb") as dL:  #We save the dictionary to remember we delete a list
+                                my_pickler= pickle.Pickler(dL)
+                                my_pickler.dump(dict_of_list)
+                                dL.close()
+
+                            print(f"{name_delete} has been delete")
+
+                            if len(dict_of_list)== 0:   #check that there are still lists
+                                print("\nTheir is no more list")
+                                chooseTheList()
+
+                            one_more=input('If you want to delete an other list press "o" else press enter: ')    #if the user want to delete an other list
+                            if one_more.lower()=="o":
+                                print("\nList saved: ")     #Show all the list available 
+                                for x,y in dict_of_list.items():
+                                    print(x ,"= ",y)
+                                delete_list()
                         
-                        if change.lower()=="d":
-                            global name_delete
-                            name_delete= input("\n Enter the name of the list to delete: ")
-                            if name_delete.lower() in dict_of_list:     #verify that the list exist
-                                dict_of_list.pop(name_delete)    #delete the list
-
-                                with open("dictList", "wb") as dL:  #We save the dictionary to remember we delete a list
-                                    my_pickler= pickle.Pickler(dL)
-                                    my_pickler.dump(dict_of_list)
-                                    dL.close()
-
-                                print(f"{name_delete} has been delete")
-
-
-                            else:
-                                print("\n Please enter a correct name")
-                                modify_list()
-                        
-                        elif change.lower()== "c":  #To continue
-                            pass
-
                         else:
-                            print('\n Please press "d" or "c" ')
-                            modify_list()
-                               
+                            print("\nPlease enter a correct name")
+                            delete_list()
+                            
 
-                    modify_list()
+                delete_list()
 
 
-                if len(dict_of_list)== 0:
-                    print("\n Their is no more list")
-                    chooseTheList()
-
-                select= input("\n Type the name of the list you want to use: ")
+                select= input("\nType the name of the list you want to use: ")
                 if select.lower() in dict_of_list:  #verify that the list exist
                     display_randomly_list()
                 else:
@@ -155,7 +156,7 @@ def program():  # main program
 
     elif Type == 2:  # Second thing we can do
         while redo:
-            x = input( "\n write the different propositions separated by a comma \",\": ")
+            x = input( "\nWrite the different propositions separated by a comma \",\": ")
             x = x.split(",")
             y = choice(x)
             print(f"\n{y}\n")
@@ -171,12 +172,12 @@ def program():  # main program
 
         def number_between():
             # choose the type of number we want
-            print("""\n Do you want           
+            print("""\nDo you want           
                     1.whole number
                     2.decimal number""")
 
             global intOrFloat
-            intOrFloat = input("\n Choose 1 or 2: ")
+            intOrFloat = input("\nChoose 1 or 2: ")
 
             try:  # To be sure the user type 1 or 2 and not something else
                 intOrFloat = int(intOrFloat)
@@ -184,13 +185,13 @@ def program():  # main program
                     raise ValueError
 
             except ValueError:
-                print("\n Please enter 1 or 2")
+                print("\nPlease enter 1 or 2")
                 number_between()
 
             def two_numbers():
                 global number
                 # Set the range of number
-                number = input("\n Choose numbers (x,y): ")
+                number = input("\nChoose numbers (x,y): ")
                 number = number.split(",")
 
                 def convert():
@@ -202,7 +203,7 @@ def program():  # main program
                                 raise Exception
 
                         except Exception:
-                            print("\n Please retry")
+                            print("\nPlease retry")
                             two_numbers()
 
                         else:
@@ -216,7 +217,7 @@ def program():  # main program
                                 raise Exception
 
                         except:
-                            print("\n Please retry")
+                            print("\nPlease retry")
                             two_numbers()
 
                         else:
