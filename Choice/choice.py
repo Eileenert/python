@@ -18,7 +18,6 @@ def restart():  # Choose to restart or no
             program()
         else:  # Exit
             print("\nBye")
-
             redo = False
     elif yn.lower() == "y":
         pass
@@ -53,8 +52,7 @@ def choose_type():  # Choose what we want to do
 
 def chooseTheList():  # choose themlist
     global dict_of_list
-    global dL
-    global my_depickler
+    global select
     try:
         with open("dictList", "rb") as dL:  # We get the dictionary
             my_depickler = pickle.Unpickler(dL)
@@ -99,7 +97,6 @@ def chooseTheList():  # choose themlist
             my_pickler.dump(dict_of_list)
             dL.close()
 
-        global select
         select = name  # To use in the display_randomly_list() function
         display_randomly_list()
 
@@ -107,24 +104,26 @@ def chooseTheList():  # choose themlist
         if len(dict_of_list) == 0:  # Check if their is somethong in the dictionary
             print("\nThere is no list already saved")
             chooseTheList()
-
-        print("\nList saved: ")  # Show all the list available
-        for x, y in dict_of_list.items():
-            print(x, "= ", y)
-
-        # if the user want to modify the dictionary
-        global modify
-        modify = input(
-            '\nIf you want to delete a list press "d" else press enter to choose the list: ')
-
-        delete_list()  # function to delete a list
-
-        select = input("\nType the name of the list you want to use: ")
-        if select.capitalize() in dict_of_list:  # verify that the list exist
-            display_randomly_list()
         else:
-            print("\n Please an existant name")
-            chooseTheList()
+            print("\nList saved: ")  # Show all the list available
+            for x, y in dict_of_list.items():
+                print(x, "= ", y)
+
+            # if the user want to modify the dictionary
+            global modify
+            modify = input(
+                '\nIf you want to delete a list press "d" else press enter to choose the list: ')
+
+            if modify.lower() == "d":
+                delete_list()  # function to delete a list
+            else:
+                select = input("\nType the name of the list you want to use: ")
+                select= select.capitalize()
+                if select in dict_of_list:  # verify that the list exist
+                    display_randomly_list()
+                else:
+                    print("\nPlease enter an existant name")
+                    chooseTheList()
 
     else:
         print('\nPlease enter "c" or "s"')
@@ -140,26 +139,25 @@ def display_randomly_list():  # display the items of the list choose below rando
 
 
 def delete_list():  # to delete a list
-    if modify.lower() == "d":
-        global name_delete
-        name_delete = input(
-            "\nEnter the name of the list to delete: ")
-        if name_delete.capitalize() in dict_of_list:  # verify that the list exist
-            # delete the list
-            dict_of_list.pop(name_delete.capitalize())
+    global name_delete
+    name_delete = input(
+        "\nEnter the name of the list to delete: ")
+    if name_delete.capitalize() in dict_of_list:  # verify that the list exist
+        # delete the list
+        dict_of_list.pop(name_delete.capitalize())
 
-            # We save the dictionary to remember we delete a list
-            with open("dictList", "wb") as dL:
-                my_pickler = pickle.Pickler(dL)
-                my_pickler.dump(dict_of_list)
-                dL.close()
+        # We save the dictionary to remember we delete a list
+        with open("dictList", "wb") as dL:
+            my_pickler = pickle.Pickler(dL)
+            my_pickler.dump(dict_of_list)
+            dL.close()
 
-            print(f"{name_delete} has been delete")
+        print(f"{name_delete} has been delete")
 
-            if len(dict_of_list) == 0:  # check that there are still lists
-                print("\nTheir is no more list")
-                chooseTheList()
-
+        if len(dict_of_list) == 0:  # check that there are still lists
+            print("\nTheir is no more list")
+            chooseTheList()
+        else:
             # if the user want to delete an other list
             one_more = input(
                 'If you want to delete an other list press "o" else press enter: ')
@@ -169,10 +167,12 @@ def delete_list():  # to delete a list
                 for x, y in dict_of_list.items():
                     print(x, "= ", y)
                 delete_list()
+            else:
+                chooseTheList()
 
-        else:
-            print("\nPlease enter a correct name")
-            delete_list()
+    else:
+        print("\nPlease enter a correct name")
+        delete_list()
 
 # -----------------------------------------------------------------------------------------------------------
 # Functions if type==2
