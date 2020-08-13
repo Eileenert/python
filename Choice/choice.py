@@ -77,7 +77,7 @@ def program():  # main program
                 # choose the name of the new list
                 name = input(
                     "\nPlease enter the name of the list you want to create: ")
-                name = name.lower()
+                name = name.capitalize()
 
                 if name in dict_of_list:  # To be sure that an existing list does not have the same name to avoid errors
                     print("\nPlease enter a non-existent name")
@@ -125,8 +125,9 @@ def program():  # main program
                         global name_delete
                         name_delete = input(
                             "\nEnter the name of the list to delete: ")
-                        if name_delete.lower() in dict_of_list:  # verify that the list exist
-                            dict_of_list.pop(name_delete)  # delete the list
+                        if name_delete.capitalize() in dict_of_list:  # verify that the list exist
+                            # delete the list
+                            dict_of_list.pop(name_delete.capitalize())
 
                             # We save the dictionary to remember we delete a list
                             with open("dictList", "wb") as dL:
@@ -157,14 +158,14 @@ def program():  # main program
                 delete_list()
 
                 select = input("\nType the name of the list you want to use: ")
-                if select.lower() in dict_of_list:  # verify that the list exist
+                if select.capitalize() in dict_of_list:  # verify that the list exist
                     display_randomly_list()
                 else:
                     print("\n Please an existant name")
                     chooseTheList()
 
             else:
-                print('\n Please enter "c" or "s"')
+                print('\nPlease enter "c" or "s"')
                 chooseTheList()
 
         chooseTheList()
