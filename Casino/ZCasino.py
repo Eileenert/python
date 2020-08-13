@@ -11,16 +11,18 @@ def new_game():
     global newGame
     global mA
 
-    newGame=input("If you want to start a new game press \"n\" .To recover your previous game press \"p\": " )  #choose to recover the previous game or not
-    if newGame.lower()=="n":        
-        with open("moneyAmount","wb") as mA:        #create a new game by overwriting the old one
-            my_pickler= pickle.Pickler(mA)
-        money=1000
-    elif newGame.lower()=="p":     
+    # choose to recover the previous game or not
+    newGame = input(
+        "If you want to start a new game press \"n\" .To recover your previous game press \"p\": ")
+    if newGame.lower() == "n":
+        with open("moneyAmount", "wb") as mA:  # create a new game by overwriting the old one
+            my_pickler = pickle.Pickler(mA)
+        money = 1000
+    elif newGame.lower() == "p":
         try:
-            with open("moneyAmount", "rb") as mA:   #recover the previous game
-                my_depickler= pickle.Unpickler(mA)
-                money= my_depickler.load()
+            with open("moneyAmount", "rb") as mA:  # recover the previous game
+                my_depickler = pickle.Unpickler(mA)
+                money = my_depickler.load()
                 print(money)
                 mA.close()
         except:
@@ -29,11 +31,11 @@ def new_game():
     else:
         print("Please enter \"n\" or \"p\"")
         new_game()
-            
 
-def rules():        #rules
-    seeRules=input("Do you want to see the rules? (y/n): ")
-    if seeRules.lower()== "y":
+
+def rules():  # rules
+    seeRules = input("Do you want to see the rules? (y/n): ")
+    if seeRules.lower() == "y":
         print("""
 A winning number between 1 and 10 will be drawn randomly.
 If you have bet the same number as the winning number you win triple the amount wagered
@@ -41,25 +43,24 @@ otherwise if the two numbers are both even or odd (so the same color) the gain i
 If this is not the case you lose your bet. 
 """)
         new_game()
-    elif seeRules.lower()== "n":
+    elif seeRules.lower() == "n":
         new_game()
     else:
         print("Please enter y or n")
         rules()
-    
 
 
-rules()        
+rules()
 
 
-print(f"You sit at a table with {money}$")  #situation
+print(f"You sit at a table with {money}$")  # situation
 
 while True:
 
     def chooseNumber():  # Bet a correct number
         global bet_number
         bet_number = input("Bet a number between 0 and 10: ")
-        try:        #verify if the input is a valid number between 0 and 10
+        try:  # verify if the input is a valid number between 0 and 10
             bet_number = int(bet_number)
             if bet_number < 0 or 10 < bet_number:
                 raise ValueError
@@ -71,8 +72,8 @@ while True:
 
     def chooseMoney():  # Bet a correct amount of money
         global bet_money
-        bet_money = input(f"Choose an amount to bet, you have {money}$ : ") 
-        try:    #verify that the input is a correct amount of money
+        bet_money = input(f"Choose an amount to bet, you have {money}$ : ")
+        try:  # verify that the input is a correct amount of money
             bet_money = int(bet_money)
             if bet_money <= 0 or money < bet_money:
                 raise ValueError
@@ -85,7 +86,7 @@ while True:
     x = randint(0, 10)
     print(f"The random number is... {x}!")
 
-    if x == bet_number:         #if the winning number is the same as the number bet
+    if x == bet_number:  # if the winning number is the same as the number bet
         money += 3*bet_money
         print(f"Well done you won! Now you have {money}$")
 
@@ -100,16 +101,16 @@ while True:
 
     if money <= 0:  # stop the partie if no money is left
         print("You're ruined it's the end of the game. This party will not be saved.")
-        with open("moneyAmount","wb") as mA:
-            my_pickler= pickle.Pickler(mA)
+        with open("moneyAmount", "wb") as mA:
+            my_pickler = pickle.Pickler(mA)
         break
-    else:   #choose to live or not
+    else:  # choose to live or not
         print(f"You have now {money}$")
         leave = input("Do you want to leave the game? (y/n): ")
         if leave.lower() == "y":
             print("Bye. This party will be saved.")
-            with open("moneyAmount","wb") as mA:    #saved the party
-                my_pickler= pickle.Pickler(mA)
+            with open("moneyAmount", "wb") as mA:  # saved the party
+                my_pickler = pickle.Pickler(mA)
                 my_pickler.dump(money)
                 mA.close()
             break
