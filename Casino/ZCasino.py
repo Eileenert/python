@@ -2,113 +2,88 @@ import os
 from random import randint
 from math import ceil
 import pickle
-
-
-def new_game():
-    global money
-    global my_pickler
-    global my_depickler
-    global newGame
-    global mA
-
-    # choose to recover the previous game or not
-    newGame = input(
-        "If you want to start a new game press \"n\" .To recover your previous game press \"p\": ")
-    if newGame.lower() == "n":
-        with open("moneyAmount", "wb") as mA:  # create a new game by overwriting the old one
-            my_pickler = pickle.Pickler(mA)
-        money = 1000
-    elif newGame.lower() == "p":
-        try:
-            with open("moneyAmount", "rb") as mA:  # recover the previous game
-                my_depickler = pickle.Unpickler(mA)
-                money = my_depickler.load()
-                print(money)
-                mA.close()
-        except:
-            print("You don't have any previous game")
-            new_game()
-    else:
-        print("Please enter \"n\" or \"p\"")
-        new_game()
+from pathlib import Path
+import function as f
+os.chdir("C:/Users/Pink/Documents/Code/python/Casino")
 
 
 def rules():  # rules
-    seeRules = input("Do you want to see the rules? (y/n): ")
+    seeRules = input("\nDo you want to see the rules? (y/n): ")
     if seeRules.lower() == "y":
-        print("""
+        print("""\n
 A winning number between 1 and 10 will be drawn randomly.
 If you have bet the same number as the winning number you win triple the amount wagered
 otherwise if the two numbers are both even or odd (so the same color) the gain is 50% of the amount wagered. 
 If this is not the case you lose your bet. 
 """)
-        new_game()
+
     elif seeRules.lower() == "n":
-        new_game()
+        pass
     else:
-        print("Please enter y or n")
+        print("\nPlease enter y or n")
         rules()
 
 
 rules()
 
+user = f.recover_username()
 
-print(f"You sit at a table with {money}$")  # situation
+money = f.recover_money()
+
+
+if user not in money.keys():  # if the user don't have money, we add it
+    money[user] = 1000  # 1000$ for begin
+
+
+print(f"\nYou sit at a table with {money[user]}$")  # situation
 
 while True:
 
-    def chooseNumber():  # Bet a correct number
-        global bet_number
-        bet_number = input("Bet a number between 0 and 10: ")
-        try:  # verify if the input is a valid number between 0 and 10
-            bet_number = int(bet_number)
-            if bet_number < 0 or 10 < bet_number:
-                raise ValueError
-        except ValueError:
-            print("Please retry")
-            chooseNumber()
-
-    chooseNumber()
+    chooseNumber = f.chooseNumber()
 
     def chooseMoney():  # Bet a correct amount of money
         global bet_money
-        bet_money = input(f"Choose an amount to bet, you have {money}$ : ")
+        bet_money = input(
+            f"\nChoose an amount to bet, you have {money[user]}$ : ")
         try:  # verify that the input is a correct amount of money
             bet_money = int(bet_money)
-            if bet_money <= 0 or money < bet_money:
+            if bet_money <= 0 or money[user] < bet_money:
                 raise ValueError
         except ValueError:
-            print("Put a correct amount of money")
+            print("\nPut a correct amount of money")
             chooseMoney()
 
     chooseMoney()
 
     x = randint(0, 10)
-    print(f"The random number is... {x}!")
+    print(f"\nThe random number is... {x}!")
 
-    if x == bet_number:  # if the winning number is the same as the number bet
+    if x == f.bet_number:  # if the winning number is the same as the number bet
         money += 3*bet_money
-        print(f"Well done you won! Now you have {money}$")
+        print(f"\nWell done you won! Now you have {money[user]}$")
 
-    elif x % 2 == bet_number % 2:  # pair number, so same color
+    elif x % 2 == f.bet_number % 2:  # pair number, so same color
         bet_money = ceil(bet_money*0.5)
-        print(f"You bet the right color, you get {bet_money}$.")
-        money += bet_money
+        print(f"\nYou bet the right color, you get {bet_money}$.")
+        money[user] += bet_money
 
     else:
-        print("Sorry it's not for this time you lose your bet")
-        money -= bet_money
+        print("\nSorry it's not for this time you lose your bet")
+        money[user] -= bet_money
 
-    if money <= 0:  # stop the partie if no money is left
-        print("You're ruined it's the end of the game. This party will not be saved.")
+    if money[user] <= 0:  # stop the partie if no money is left
+        print("\nYou're ruined it's the end of the game.")
+        money.pop(user)
         with open("moneyAmount", "wb") as mA:
             my_pickler = pickle.Pickler(mA)
+            my_pickler.dump(money)
+            mA.close()
         break
     else:  # choose to live or not
-        print(f"You have now {money}$")
-        leave = input("Do you want to leave the game? (y/n): ")
+        print(f"\nYou have now {money[user]}$")
+        leave = input("\nDo you want to leave the game? (y/n): ")
         if leave.lower() == "y":
-            print("Bye. This party will be saved.")
+            print("\nBye. This party will be saved.")
             with open("moneyAmount", "wb") as mA:  # saved the party
                 my_pickler = pickle.Pickler(mA)
                 my_pickler.dump(money)
