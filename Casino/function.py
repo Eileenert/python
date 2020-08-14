@@ -2,7 +2,6 @@
 from pathlib import Path
 import os
 import pickle
-os.chdir("C:/Users/Pink/Documents/Code/python/Casino")
 # ------------------------------------------------------------------------------------
 # data variable
 moneyAmount = "moneyAmount"

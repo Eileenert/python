@@ -4,7 +4,6 @@ from math import ceil
 import pickle
 from pathlib import Path
 import function as f
-os.chdir("C:/Users/Pink/Documents/Code/python/Casino")
 
 
 def rules():  # rules
