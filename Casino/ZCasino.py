@@ -2,9 +2,7 @@ import os
 from random import randint
 from math import ceil
 import pickle
-from pathlib import Path
 import function as f
-
 
 def rules():  # rules
     seeRules = input("\nDo you want to see the rules? (y/n): ")
@@ -58,7 +56,7 @@ while True:
     print(f"\nThe random number is... {x}!")
 
     if x == f.bet_number:  # if the winning number is the same as the number bet
-        money += 3*bet_money
+        money[user] += 3*bet_money
         print(f"\nWell done you won! Now you have {money[user]}$")
 
     elif x % 2 == f.bet_number % 2:  # pair number, so same color

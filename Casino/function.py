@@ -1,5 +1,4 @@
 # file with functions for ZCasino.py
-from pathlib import Path
 import os
 import pickle
 # ------------------------------------------------------------------------------------
@@ -23,13 +22,13 @@ def recover_username():  # to reover the username
 
 
 def recover_money():
-    path_money = Path(moneyAmount)
-    if path_money.exists():  # the file exist
-        # we get it back
-        with path_money.open("rb") as mA:
+    try:
+        with open(moneyAmount, "rb") as mA:  # We get the dictionary
             my_depickler = pickle.Unpickler(mA)
+            # The dictionary which will contain all the names of the lists we created and their items
             money = my_depickler.load()
-    else:  # The file doesn't exist
+            mA.close()
+    except: # The file doesn't exist
         money = {}
 
     return money
