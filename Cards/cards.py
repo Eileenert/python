@@ -104,6 +104,7 @@ class Game52Cards:
 class Game52CardsTest(unittest.TestCase):
 
     def setUp(self):
+        #initialization of tests
         self.false_package = []
         for sign in SIGN:  # fill up the false package
             for values in VALUES:
