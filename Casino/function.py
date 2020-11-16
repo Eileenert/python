@@ -1,6 +1,9 @@
 # file with functions for ZCasino.py
 import os
 import pickle
+import random
+import unittest
+from unittest import mock
 # ------------------------------------------------------------------------------------
 # data variable
 moneyAmount = "moneyAmount"
@@ -48,3 +51,29 @@ def chooseNumber():  # Bet a correct number
         chooseNumber()
 
     return bet_number
+
+#--------------------------unittest-----------------------------------------
+
+class functionTest(unittest.TestCase):
+
+    def test_chooseNumber(self):    # test the chooseNumber function
+
+        #the differents input we can have (all are strings)
+        numberBetween_0_10=str(random.randrange(0,11))  # a number between 0-10
+        nbr_less_0= "-5"        #a number less than 0
+        nbr_bigger_10 = "11"    #a number greater than 10
+        not_a_number= "this is not a number"    #not a number
+
+        with mock.patch('builtins.input', return_value= numberBetween_0_10 ):  
+            assert chooseNumber() == int(numberBetween_0_10)
+
+        with mock.patch('builtins.input', return_value= nbr_less_0 ):
+            self.assertRaises(ValueError)
+
+        with mock.patch('builtins.input', return_value= nbr_bigger_10 ):
+            self.assertRaises(ValueError)
+        
+        with mock.patch('builtins.input', return_value= not_a_number ):
+            self.assertRaises(ValueError)
+
+unittest.main()
