@@ -105,7 +105,7 @@ while True:
                                 break
 
                             else:
-                                print("Please enter 'y' or 'n'")
+                                break
 
                     break
 
