@@ -16,6 +16,10 @@ Allows you to keep the same lists of choices each time, to choose between differ
 Spy game (the rules are explained at the beginning) <br>
 To play with several friends or family members (need at least 4 people).
 
+## text_morse
+Translate text to morse or vice-vera (morse into latin alphabet). <br>
+Hear morse signals (sound, after translation or directly)
+
 ## ytb_videoDownloader
 To download YouTube videos and its subtitles <br>
 It may be that for some video and subtitle it does not work, if you know why i'd like you to send me a message :)
