@@ -14,7 +14,7 @@ Allows you to keep the same lists of choices each time, to choose between differ
 
 ## Spy
 Spy game (the rules are explained at the beginning) <br>
-To play with several friends or family members (preferably from at least 4 people).
+To play with several friends or family members (need at least 4 people).
 
 ## ytb_videoDownloader
 To download YouTube videos and its subtitles <br>
