@@ -1,6 +1,6 @@
 from random import choice
 import os
-
+import tkinter as tk
 
 # list of different places
 place = ["Parking", "Home", "Office", "Airport", "Bakery", "Bank", "Bar", "Bookstore", "Bus station", "Café", "Church", "Cinema", "Gym", "School", "Hospital",
@@ -8,35 +8,42 @@ place = ["Parking", "Home", "Office", "Airport", "Bakery", "Bank", "Bar", "Books
 
 
 def see_rules():
-    rules = input("Do you want to see the rules? (y/n): ")
-    if rules.lower() == "y":
-        # rules
-        print("""\nEach in turn you are going to receive your role (one person at a time must watch his role).
+
+    while True:
+        rules = input("Do you want to see the rules? (y/n): ")
+
+        if rules.lower() == "y":
+            # rules
+            print("""\nEach in turn you are going to receive your role (one person at a time must watch his role).
 The villagers receive at the same time the place, which is the same for each one. 
 There are 2 spies among you, you must unmask them. 
 The spies do not receive the location and must convince the villagers that they know the location to not be unmask.
 When you are ready, you must each vote 2 people you think are the spies\n""")
-    elif rules.lower() == "n":
-        pass
-    else:  # if the user didn't choose y or n
-        print("Please enter y or n")
-        see_rules()
+
+            break
+        elif rules.lower() == "n":
+            break
+
+        else:  # if the user didn't choose y or n
+            print("Please enter y or n")
 
 
 # choose the number of players
 def numberPlayers():
-    global nbr_players
-    nbr_players = input("Please enter the number of players: ")
-    try:
-        nbr_players = int(nbr_players)  # convert str into int
+    while True:
+        nbr_players = input("Please enter the number of players: ")
+        try:
+            nbr_players = int(nbr_players)  # convert str into int
 
-        if nbr_players <= 3:  # verify the number of players
-            print("You must be at least 4 to play")
-            raise ValueError
+            if nbr_players <= 3:  # verify the number of players
+                print("You must be at least 4 to play")
+                raise ValueError
 
-    except ValueError:
-        print("Please enter a correct number")
-        numberPlayers()
+        except ValueError:
+            print("Please enter a correct number")
+
+        else:
+            break
 
     return nbr_players
 

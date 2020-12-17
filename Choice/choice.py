@@ -1,6 +1,7 @@
 import os
 from random import choice, randint, uniform
 import pickle
+os.chdir("c:/Users/Pink/Documents/Code/python/Choice")
 
 # --------------------------------------------------------------------------------------
 # Function to restart or not
@@ -8,22 +9,24 @@ import pickle
 
 def restart():  # Choose to restart or no
     global redo
-    global yn
-    yn = input("Restart? y/n :")
-    if yn.lower() == "n":
-        # Change the type
-        change = input(
-            "\nTo change the type write \"change\" else press enter to continue: ")
-        if change.lower() == "change":
-            program()
-        else:  # Exit
-            print("\nBye")
-            redo = False
-    elif yn.lower() == "y":
-        pass
-    else:
-        print('\nPlease enter "y" or "n" ')
-        restart()
+    while True:
+        yn = input("Restart? y/n :")
+
+        if yn.lower() == "n":
+            # Change the type
+            change = input(
+                "\nTo change the type write \"change\" else press enter to continue: ")
+
+            if change.lower() == "change":
+                program()
+            else:  # Exit
+                print("\nBye")
+                redo = False
+                break
+        elif yn.lower() == "y":
+            break
+        else:
+            print('\nPlease enter "y" or "n" ')
 
 
 # ----------------------------------------------------------------------------------------
@@ -36,15 +39,19 @@ def choose_type():  # Choose what we want to do
         3.Random number \n""")
 
     global Type
-    Type = input("Choose 1,2 or 3: ")
 
-    try:
-        Type = int(Type)
-        if Type < 1 or 3 < Type:
-            raise ValueError
-    except ValueError:
-        print("\n Error")
-        choose_type()
+    while True:
+        Type = input("Choose 1,2 or 3: ")
+
+        try:
+            Type = int(Type)
+            if Type < 1 or 3 < Type:
+                raise ValueError
+        except ValueError:
+            print("\n Error")
+        
+        else:
+            break
 
 
 # --------------------------------------------------------------------------------------------
@@ -118,7 +125,7 @@ def chooseTheList():  # choose themlist
                 delete_list()  # function to delete a list
             else:
                 select = input("\nType the name of the list you want to use: ")
-                select= select.capitalize()
+                select = select.capitalize()
                 if select in dict_of_list:  # verify that the list exist
                     display_randomly_list()
                 else:
@@ -140,39 +147,41 @@ def display_randomly_list():  # display the items of the list choose below rando
 
 def delete_list():  # to delete a list
     global name_delete
-    name_delete = input(
-        "\nEnter the name of the list to delete: ")
-    if name_delete.capitalize() in dict_of_list:  # verify that the list exist
-        # delete the list
-        dict_of_list.pop(name_delete.capitalize())
+    while True:
+        name_delete = input(
+            "\nEnter the name of the list to delete: ")
 
-        # We save the dictionary to remember we delete a list
-        with open("dictList", "wb") as dL:
-            my_pickler = pickle.Pickler(dL)
-            my_pickler.dump(dict_of_list)
-            dL.close()
+        if name_delete.capitalize() in dict_of_list:  # verify that the list exist
+            # delete the list
+            dict_of_list.pop(name_delete.capitalize())
 
-        print(f"{name_delete} has been delete")
+            # We save the dictionary to remember we delete a list
+            with open("dictList", "wb") as dL:
+                my_pickler = pickle.Pickler(dL)
+                my_pickler.dump(dict_of_list)
+                dL.close()
 
-        if len(dict_of_list) == 0:  # check that there are still lists
-            print("\nTheir is no more list")
-            chooseTheList()
-        else:
-            # if the user want to delete an other list
-            one_more = input(
-                'If you want to delete an other list press "o" else press enter: ')
-            if one_more.lower() == "o":
-                # Show all the list available
-                print("\nList saved: ")
-                for x, y in dict_of_list.items():
-                    print(x, "= ", y)
-                delete_list()
-            else:
+            print(f"{name_delete} has been delete")
+
+            if len(dict_of_list) == 0:  # check that there are still lists
+                print("\nTheir is no more list")
                 chooseTheList()
+            else:
+                # if the user want to delete an other list
+                one_more = input(
+                    'If you want to delete an other list press "o" else press enter: ')
+                if one_more.lower() == "o":
+                    # Show all the list available
+                    print("\nList saved: ")
+                    for x, y in dict_of_list.items():
+                        print(x, "= ", y)
+                    delete_list()
+                else:
+                    chooseTheList()
 
-    else:
-        print("\nPlease enter a correct name")
-        delete_list()
+        else:
+            print("\nPlease enter a correct name")
+        
 
 # -----------------------------------------------------------------------------------------------------------
 # Functions if type==2
@@ -192,22 +201,26 @@ def different_list_eachTime():
 # Functions if type==3
 
 def number_between():  # choose if we want int or float
-    # choose the type of number we want
-    print("""\nDo you want           
-            1.whole number
-            2.decimal number""")
+    while True:
 
-    global intOrFloat
-    intOrFloat = input("\nChoose 1 or 2: ")
+        # choose the type of number we want
+        print("""\nDo you want           
+                1.whole number
+                2.decimal number""")
 
-    try:  # To be sure the user type 1 or 2 and not something else
-        intOrFloat = int(intOrFloat)
-        if intOrFloat < 1 or 2 < intOrFloat:
-            raise ValueError
+        global intOrFloat
+        intOrFloat = input("\nChoose 1 or 2: ")
 
-    except ValueError:
-        print("\nPlease enter 1 or 2")
-        number_between()
+        try:  # To be sure the user type 1 or 2 and not something else
+            intOrFloat = int(intOrFloat)
+            if intOrFloat < 1 or 2 < intOrFloat:
+                raise ValueError
+
+        except ValueError:
+            print("\nPlease enter 1 or 2")
+        
+        else:
+            break
 
     two_numbers()
 
