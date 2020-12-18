@@ -152,5 +152,4 @@ class Game52CardsTest(unittest.TestCase):
         self.assertEqual(len(self.real_package), 0)
 
 
-unittest.main()
 # -----------------------------------------------------
