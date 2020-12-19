@@ -11,22 +11,22 @@ def info_video():
     subtitle = yt.captions.all()
 
     # Title of the video
-    print(f"Title: {yt.title}")
+    print(f"\nTitle: {yt.title}", flush=True)
 
     # number of views of the video
-    print(f"Number of views: {yt.views}")
+    print(f"\nNumber of views: {yt.views}", flush=True)
 
     # length of the video
-    print(f"Length of the video: {yt.length} seconds")
+    print(f"\nLength of the video: {yt.length} seconds", flush=True)
 
     # Description of video
-    print(f"Description: {yt.description}")
+    print(f"\nDescription: \n{yt.description}", flush=True)
 
     # rating
-    print(f"Ratings: {yt.rating}")
+    print(f"\nRatings: {yt.rating}", flush=True)
 
     # Subtitle
-    print(f"Subtitle available: \n {subtitle}")
+    print(f"\nSubtitle available:\n{subtitle}", flush=True)
 
     return subtitle, yt
 
@@ -41,9 +41,9 @@ def download_video(yt):
     try:
         ys.download()
     except:
-        print("We can't downlad this video")
+        print("\nWe can't downlad this video")
     else:
-        print("Download completed!")
+        print("\nDownload completed!")
 
 
 # download the subtitles
@@ -74,7 +74,7 @@ def download_subtitles(subtitle):
                         i = 0
                         # list of subtitles with a number for each one
                         for sub in subtitle:
-                            print(f"Press {i} for this subtitle: {sub}")
+                            print(f"\nPress {i} for this subtitle: {sub}")
                             i += 1
 
                         # choose the subtitles
@@ -92,8 +92,7 @@ def download_subtitles(subtitle):
 
                     try:
                         # generate subtitle's text
-                        subtitle_text = subtitle[language].generate_srt_captions(
-                        )
+                        subtitle_text = subtitle[language].generate_srt_captions()
                         with open(f"subtitle{language}.srt", "wt") as file:
                             # write subtitle's text
                             file.write(f"{subtitle_text}")
