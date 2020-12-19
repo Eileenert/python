@@ -2,9 +2,13 @@ import os
 from pytube import YouTube
 os.chdir(f"{os.path.dirname(__file__)}/ytb_download")
 
-while True:
+
+# informations about the video
+def info_video():
+
     link = input("Enter the link: ")
     yt = YouTube(link)
+    subtitle = yt.captions.all()
 
     # Title of the video
     print(f"Title: {yt.title}")
@@ -22,9 +26,13 @@ while True:
     print(f"Ratings: {yt.rating}")
 
     # Subtitle
-    subtitle = yt.captions.all()
-    print(f"Subtitle available: {yt.captions.all()}")
+    print(f"Subtitle available: \n {subtitle}")
 
+    return subtitle, yt
+
+
+# Download the video
+def download_video(yt):
     # get the best resolutiom
     ys = yt.streams.get_highest_resolution()
 
@@ -37,88 +45,101 @@ while True:
     else:
         print("Download completed!")
 
-        # choose to download subtitles
-        if subtitle != []:
 
-            while True:
-                #ask to download or not the subtitles
-                subtitle_dwl = input(
-                    "Do you want to download the subtitles? y/n: ")
+# download the subtitles
+def download_subtitles(subtitle):
+    if subtitle != []:
+        while True:
+            # ask to download or not the subtitles
+            subtitle_dwl = input(
+                "Do you want to download the subtitles? y/n: ")
 
-                # we do not download the subtitles
-                if subtitle_dwl.lower() == "n":
+            # we do not download the subtitles
+            if subtitle_dwl.lower() == "n":
 
-                    # Be sure before qui
-                    sure = input("Are you sure? y/n: ")
-                    if sure.lower() == "n":
-                        pass
+                # Be sure before qui
+                sure = input("Are you sure? y/n: ")
+                if sure.lower() == "n":
+                    pass
 
-                    # quit
-                    else:
-                        print("\nBye")
-                        break
+                # quit
+                else:
+                    print("\nBye")
+                    break
 
-                # we download the subtitles
-                elif subtitle_dwl.lower() == "y":
+            # we download the subtitles
+            elif subtitle_dwl.lower() == "y":
+                while True:
                     while True:
-                        while True:
-                            i = 0
-                            #list of subtitles with a number for each one
-                            for sub in subtitle:
-                                print(f"Press {i} for this subtitle: {sub}")
-                                i += 1
+                        i = 0
+                        # list of subtitles with a number for each one
+                        for sub in subtitle:
+                            print(f"Press {i} for this subtitle: {sub}")
+                            i += 1
 
-                            #choose the subtitles
-                            language = input("Press the number: ")
-                            try:    #verify that it's a correct number
-                                language = int(language)
+                        # choose the subtitles
+                        language = input("Press the number: ")
+                        try:  # verify that it's a correct number
+                            language = int(language)
 
-                                if language > len(subtitle):
-                                    print("please enter a correct number")
-
-                                else:
-                                    break
-                            except:
-                                print("Please enter a number")
-
-                        try:
-                            # generate subtitle's text
-                            subtitle_text = subtitle[language].generate_srt_captions()
-                            with open(f"subtitle{language}.srt", "wt") as file:
-                                # write subtitle's text
-                                file.write(f"{subtitle_text}")
-
-                            print("Download completed!")
-                            # quit
-                            break
-
-                        except:
-                            print("Impossible to download this subtitle")
-                            os.remove(f"subtitle{language}.srt")
-
-                            retry=input("try other subtitles? y/n: ")
-
-                            if retry.lower()=="y":
-                                pass
-
-                            elif retry.lower()=="n":
-                                break
+                            if language > len(subtitle):
+                                print("please enter a correct number")
 
                             else:
                                 break
+                        except:
+                            print("Please enter a number")
 
-                    break
+                    try:
+                        # generate subtitle's text
+                        subtitle_text = subtitle[language].generate_srt_captions(
+                        )
+                        with open(f"subtitle{language}.srt", "wt") as file:
+                            # write subtitle's text
+                            file.write(f"{subtitle_text}")
 
-                else:
-                    print("Please enter 'y' or 'n'")
+                        print("Download completed!")
+                        # quit
+                        break
 
+                    except:
+                        print("Impossible to download this subtitle")
+                        os.remove(f"subtitle{language}.srt")
+
+                        retry = input("try other subtitles? y/n: ")
+
+                        if retry.lower() == "y":
+                            pass
+
+                        elif retry.lower() == "n":
+                            break
+
+                        else:
+                            break
+
+                break
+
+            else:
+                print("Please enter 'y' or 'n'")
+
+
+# Ask if we want to download another video or not
+def restart():
     again = input("Do you want to download another video? y/n: ")
 
     if again.lower() == "n":
         print("bye")
-        break
     elif again.lower() == "y":
-        pass
+        main()
     else:
         print("bye")
-        break
+
+
+def main():
+    sub_yt = info_video()
+    download_video(sub_yt[1])
+    download_subtitles(sub_yt[0])
+    restart()
+
+
+main()
