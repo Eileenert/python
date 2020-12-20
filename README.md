@@ -6,7 +6,7 @@ Works like a pack of cards <br>
 <br>
 
 ## Casino
-little money game <br>
+little money game with game save <br>
 (inspired by the book by Vincent Le Goff)
 <br>
 
@@ -14,6 +14,10 @@ little money game <br>
 For when there are difficult choices to make. <br>
 Allows you to keep the same lists of choices each time, to choose between different numbers, ranges of numbers or words.
 <br>
+
+## Hangman
+A little hangman game with game save. <br>
+(inspired by the book by Vincent Le Goff)
 
 ## Spy
 Spy game (the rules are explained at the beginning) <br>
