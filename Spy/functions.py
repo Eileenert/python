@@ -1,5 +1,4 @@
 from random import choice
-import os
 import tkinter as tk
 
 # list of different places

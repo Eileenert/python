@@ -1,4 +1,3 @@
-import os
 import functions as f
 from random import shuffle
 import tkinter as tk
@@ -63,7 +62,5 @@ def game():
     restart()
 
 
-game()
-
-
-os.system("pause")
+if __name__ == '__main__':
+    game()

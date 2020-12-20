@@ -290,6 +290,5 @@ def program():
         number_between()  # choose the range between 2 numbers
 
 
-program()
-
-os.system("pause")
+if __name__ == '__main__':
+    program()

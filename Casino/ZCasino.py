@@ -1,4 +1,3 @@
-import os
 from random import randint
 from math import ceil
 import pickle
@@ -87,4 +86,3 @@ while True:
                 mA.close()
             break
 
-os.system("pause")
