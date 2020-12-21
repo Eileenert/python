@@ -43,11 +43,11 @@ def download_video(yt):
     except:
         print("\nWe can't downlad this video")
     else:
-        print("\nDownload completed!")
+        print(f"\n{yt.title} Download completed!")
 
 
 # download the subtitles
-def download_subtitles(subtitle):
+def download_subtitles(subtitle,yt):
     if subtitle != []:
         while True:
             # ask to download or not the subtitles
@@ -93,7 +93,7 @@ def download_subtitles(subtitle):
                     try:
                         # generate subtitle's text
                         subtitle_text = subtitle[language].generate_srt_captions()
-                        with open(f"subtitle{language}.srt", "wt") as file:
+                        with open(f"{yt.title}subtitle{language}.srt", "wt") as file:
                             # write subtitle's text
                             file.write(f"{subtitle_text}")
 
@@ -137,9 +137,8 @@ def restart():
 def main():
     sub_yt = info_video()
     download_video(sub_yt[1])
-    download_subtitles(sub_yt[0])
+    download_subtitles(sub_yt[0],sub_yt[1])
     restart()
-
 
 if __name__ == '__main__':
     main()
