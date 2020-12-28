@@ -8,8 +8,9 @@ class Interface(tk.Frame):
     """main window"""
 
     def __init__(self, window, **kwargs):
-        tk.Frame.__init__(self, window, width=750, height=575, **kwargs)
-        self.pack(fill=tk.BOTH)
+        tk.Frame.__init__(self, window, width=1000, height=500,
+                          background="#0d0d0d", **kwargs)
+        self.pack(expand=1)
 
         self.place = f.random_place()  # the place
 
@@ -19,31 +20,32 @@ class Interface(tk.Frame):
         self.spies_or_villager = ""  # if the player is a spy or a villager
 
         # ask if we want to see the rules
-        self.message = tk.Label(self, text="Do you want to see the rules")
-        self.message.pack()
+        self.message = tk.Label(self, text="Do you want to see the rules", font=(
+            "Helvetica", 14), anchor="e", justify="left", bg="#0d0d0d", fg="#f3f2f2")
+        self.message.pack(fill=tk.BOTH, side="top", padx=15, pady=15)
 
         self.no_button = tk.Button(  # no button
-            self, text="No", fg="red", command=self.nbr_player)
-        self.no_button.pack(side="left")
+            self, text="No", fg="#f3f2f2", command=self.nbr_player, font=("Helvetica", 14), bg="#1a1a1a")
+        self.no_button.pack(side="left", expand=1)
 
         self.yes_button = tk.Button(  # yes button
-            self, text="Yes", fg="green", command=self.display_rules)
-        self.yes_button.pack(side="right")
+            self, text="Yes", command=self.display_rules, font=("Helvetica", 14), fg="#f3f2f2", bg="#1a1a1a")
+        self.yes_button.pack(side="right", expand=1)
 
         self.next_button = tk.Button(  # next button
-            self, text="Next", fg="red", command=self.nbr_player)
+            self, text="Next", command=self.nbr_player, font=("Helvetica", 14), fg="#f3f2f2", bg="#1a1a1a")
 
         self.var_text_entry = tk.StringVar()  # variable with entry_line text
         self.entry_line = tk.Entry(
-            self, textvariable=self.var_text_entry)  # entry line
+            self, textvariable=self.var_text_entry, font=("Courier", 14), fg="#f3f2f2", bg="#1a1a1a")  # entry line
 
         # enter button
         self.enter_button = tk.Button(
-            self, text="Enter", fg="red", command=self.verify_nbr_player)
+            self, text="Enter", command=self.verify_nbr_player, font=("Helvetica", 14), fg="#f3f2f2", bg="#1a1a1a")
 
         # next player button
         self.next_player_button = tk.Button(
-            self, text="Next Player", fg="blue", command=self.next_player)
+            self, text="Next Player", command=self.next_player, font=("Helvetica", 14), fg="#f3f2f2", bg="#1a1a1a")
         self.text_or_white = "text"
 
         self.number_of_card = 0
@@ -69,7 +71,7 @@ class Interface(tk.Frame):
 
         # modify the text
         self.message["text"] = "Please enter the number of players"
-        self.entry_line.pack()  # add an entry line
+        self.entry_line.pack(padx=15, pady=15)  # add an entry line
         self.enter_button.pack(side="bottom")  # add a enter button
 
     def verify_nbr_player(self):
@@ -136,9 +138,8 @@ if __name__ == '__main__':
     # we create our interface
     window = tk.Tk()
 
-    window.geometry('700x300')
-    window.resizable(0, 0)
-
+    window.geometry('1000x500')
+    window.configure(bg="#0d0d0d")
     interface = Interface(window)
 
     interface.mainloop()
