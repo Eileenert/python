@@ -24,6 +24,10 @@ Spy game (the rules are explained at the beginning) <br>
 To play with several friends or family members (need at least 4 people).
 <br>
 
+## calculator
+A small calculator with tkinter
+<br>
+
 ## text_morse
 Translate text to morse or vice-vera (morse into latin alphabet). <br>
 Hear morse signals (sound, after translation or directly)
