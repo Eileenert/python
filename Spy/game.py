@@ -37,7 +37,7 @@ class Interface(tk.Frame):
 
         self.var_text_entry = tk.StringVar()  # variable with entry_line text
         self.entry_line = tk.Entry(
-            self, textvariable=self.var_text_entry, font=("Courier", 14), fg="#f3f2f2", bg="#1a1a1a")  # entry line
+            self, textvariable=self.var_text_entry, font=("Courier", 14), fg="#f3f2f2", bg="#1a1a1a", insertbackground="#f3f2f2")  # entry line
 
         # enter button
         self.enter_button = tk.Button(
@@ -140,6 +140,7 @@ if __name__ == '__main__':
 
     window.geometry('1000x500')
     window.configure(bg="#0d0d0d")
+    window.title("Spy")
     interface = Interface(window)
 
     interface.mainloop()
