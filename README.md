@@ -38,7 +38,7 @@ A small calculator with tkinter
 <br>
 
 <p align="center">
-  <img src="img/calculator.png" width="600" title="calculator">
+  <img src="img/calculator.png" width="900" title="calculator">
 </p>
 
 ## text_morse
