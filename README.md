@@ -3,8 +3,9 @@ Small python projects
 ## 2048
 inspired by https://github.com/yangshun/2048-python <br>
 It's a solo game by Gabriele Cirulli, released on March 9, 2014. <br>
-<p align="center">
-  <img src="img/2048.png" width="350" title="2048">
+
+<p align="left">
+  <img src="img/2048.png" width="400" title="2048">
 </p>
 <br>
 
