@@ -37,8 +37,8 @@ To play with several friends or family members (need at least 4 people).
 A small calculator with tkinter
 <br>
 
-<p align="left">
-  <img src="img/calculator.png" width="400" title="calculator">
+<p align="center">
+  <img src="img/calculator.png" width="600" title="calculator">
 </p>
 
 ## text_morse
