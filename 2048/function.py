@@ -20,7 +20,7 @@ def add_two(board):
     a = random.randint(0, len(board) - 1)
     b = random.randint(0, len(board) - 1)
 
-    #to be sure not to put a 2 on an already existing number
+    # to be sure not to put a 2 on an already existing number
     while board[a][b] != 0:
         a = random.randint(0, len(board) - 1)
         b = random.randint(0, len(board) - 1)
@@ -30,7 +30,7 @@ def add_two(board):
 
 
 def game_stat(board):
-    #check if a cell as a value of 2048
+    # check if a cell as a value of 2048
     for i in range(data.grid_len):
         for j in range(data.grid_len):
             if board[i][j] == 2048:
@@ -132,6 +132,7 @@ def merge(board, done):
 
 
 def key_up_pressed(board):
+    """function if we want to move the boxes up"""
     board = turn_board(board)
     board, done = swipe_number(board)
     board, done = merge(board, done)
@@ -141,6 +142,7 @@ def key_up_pressed(board):
 
 
 def key_down_pressed(board):
+    """function if we want to move the boxes down"""
     board = turn_board(board)
     board = reverse(board)
     board, done = swipe_number(board)
@@ -152,6 +154,7 @@ def key_down_pressed(board):
 
 
 def key_left_pressed(board):
+    """function if we want to move the boxes left"""
     board, done = swipe_number(board)
     board, done = merge(board, done)
     board = swipe_number(board)[0]
@@ -159,6 +162,7 @@ def key_left_pressed(board):
 
 
 def key_right_pressed(board):
+    """function if we want to move the boxes right"""
     board = reverse(board)
     board, done = swipe_number(board)
     board, done = merge(board, done)

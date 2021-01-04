@@ -47,7 +47,8 @@ cell_number_color_dict = {
 
 font = ("Helvetica Neue Arial sans-serif", 30, "bold")
 
-key_up = "w"
-key_down = "s"
-key_left = "a"
-key_right = "d"
+#key to dirige the game
+key_up = ["up", "w"]
+key_down = ["down", "s"]
+key_left = ["left", "a"]
+key_right = ["right", "d"]

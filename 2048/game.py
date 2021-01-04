@@ -7,21 +7,26 @@ import time
 
 class Interface(tk.Frame):
     """main Interface"""
+
     def __init__(self, **kwargs):
         tk.Frame.__init__(self, **kwargs)
 
+        # design
         self.master.title("2048")
         self.master.geometry('489x473')
         self.master.configure(bg=data.background_color)
 
         self.grid(sticky="")
 
+        # list with cells informations
         self.grid_cells = []
         self.init_grid()
 
+        # positions of labels and numbers
         self.position = f.new_game(data.grid_len)
         self.update_position()
 
+        # after initializing the game we repeat the same functions in self.game_on
         self.game_on()
 
     def init_grid(self):
@@ -53,7 +58,7 @@ class Interface(tk.Frame):
 
             self.grid_cells.append(grid_row)
 
-    #display the correct number at the correct posizion
+    # display the correct number at the correct posizion
     def update_position(self):
         for i in range(data.grid_len):
             for j in range(data.grid_len):
@@ -71,17 +76,20 @@ class Interface(tk.Frame):
                         fg=data.cell_number_color_dict[new_number])
 
     def game_on(self):
+        """wait to press a key and do functions according to keys
+        observe if the game is won or lost or in progress"""
         done = False
-        if keyboard.is_pressed(data.key_up):
+
+        if keyboard.is_pressed(data.key_up[0]) or keyboard.is_pressed(data.key_up[1]):
             self.position, done = f.key_up_pressed(self.position)
 
-        elif keyboard.is_pressed(data.key_down):
+        elif keyboard.is_pressed(data.key_down[0]) or keyboard.is_pressed(data.key_down[1]):
             self.position, done = f.key_down_pressed(self.position)
 
-        elif keyboard.is_pressed(data.key_left):
+        elif keyboard.is_pressed(data.key_left[0]) or keyboard.is_pressed(data.key_left[1]):
             self.position, done = f.key_left_pressed(self.position)
 
-        elif keyboard.is_pressed(data.key_right):
+        elif keyboard.is_pressed(data.key_right[0]) or keyboard.is_pressed(data.key_right[1]):
             self.position, done = f.key_right_pressed(self.position)
 
         if done == True:
