@@ -37,6 +37,10 @@ To play with several friends or family members (need at least 4 people).
 A small calculator with tkinter
 <br>
 
+<p align="center">
+  <img src="img/calculator.png" width="900" title="calculator">
+</p>
+
 ## text_morse
 Translate text to morse or vice-vera (morse into latin alphabet). <br>
 Hear morse signals (sound, after translation or directly)
