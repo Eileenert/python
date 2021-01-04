@@ -106,7 +106,6 @@ class Interface(tk.Frame):
                     text="You", bg=data.background_color_empty_cell)
                 self.grid_cells[1][2].configure(
                     text="Lose!", bg=data.background_color_empty_cell)
-                self.master.destroy()
             time.sleep(0.01)
 
         self.master.after(150, self.game_on)
