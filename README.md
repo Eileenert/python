@@ -1,5 +1,10 @@
 Small python projects
 
+## 2048
+inspired by https://github.com/yangshun/2048-python <br>
+It's a solo game by Gabriele Cirulli, released on March 9, 2014.
+<br>
+
 ## Cards
 Works like a pack of cards <br>
 (inspired by the book by Vincent Le Goff)
