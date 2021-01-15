@@ -63,7 +63,7 @@ def international_morse_to_text():
 def hear_morse():
     global text
     while True:
-        # aski to hear or not
+        # ask to hear or not
         hear_yn = input("Do you want to hear it? y/n: ")
 
         # if yes to hear the sound
@@ -155,7 +155,7 @@ while True:
                     # short sounds
                     elif characters == ".":
                         winsound.Beep(2000, 150)
-                    # beteen words
+                    # between words
                     else:
                         time.sleep(0.09)
 

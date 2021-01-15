@@ -58,7 +58,7 @@ class functionTest(unittest.TestCase):
 
     def test_chooseNumber(self):    # test the chooseNumber function
 
-        #the differents input we can have (all are strings)
+        #the different input we can have (all are strings)
         numberBetween_0_10=str(random.randrange(0,11))  # a number between 0-10
         nbr_less_0= "-5"        #a number less than 0
         nbr_bigger_10 = "11"    #a number greater than 10

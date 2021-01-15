@@ -18,7 +18,7 @@ class Interface(tk.Frame):
 
         self.grid(sticky="")
 
-        # list with cells informations
+        # list with cells information
         self.grid_cells = []
         self.init_grid()
 
@@ -58,7 +58,7 @@ class Interface(tk.Frame):
 
             self.grid_cells.append(grid_row)
 
-    # display the correct number at the correct posizion
+    # display the correct number at the correct position
     def update_position(self):
         for i in range(data.grid_len):
             for j in range(data.grid_len):
@@ -72,7 +72,7 @@ class Interface(tk.Frame):
                 else:
                     self.grid_cells[i][j].configure(
                         text=new_number,
-                        bg=data.bacground_color_number_dict[new_number],
+                        bg=data.background_color_number_dict[new_number],
                         fg=data.cell_number_color_dict[new_number])
 
     def game_on(self):

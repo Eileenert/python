@@ -1,6 +1,6 @@
 #This file contains useful data for the hangman game
 
-nbr_shot=8  #number ofshot per game
+nbr_shot=8  #number of shot per game
 
 name_file_scores= "scores" #name of the file storing the scores
 

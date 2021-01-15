@@ -3,7 +3,7 @@ from pytube import YouTube
 os.chdir(f"{os.path.dirname(__file__)}/ytb_download")
 
 
-# informations about the video
+# information about the video
 def info_video():
 
     link = input("Enter the link: ")
@@ -33,7 +33,7 @@ def info_video():
 
 # Download the video
 def download_video(yt):
-    # get the best resolutiom
+    # get the best resolution
     ys = yt.streams.get_highest_resolution()
 
     # Starting download

@@ -7,7 +7,7 @@ grid_len = 4
 background_color = "#92877d"
 background_color_empty_cell = "#9e948a"
 
-bacground_color_number_dict = {
+background_color_number_dict = {
     2: "#eee4da",
     4: "#ede0c8",
     8: "#f2b179",
@@ -47,7 +47,7 @@ cell_number_color_dict = {
 
 font = ("Helvetica Neue Arial sans-serif", 30, "bold")
 
-#key to dirige the game
+#key to lead the game
 key_up = ["up", "w"]
 key_down = ["down", "s"]
 key_left = ["left", "a"]
