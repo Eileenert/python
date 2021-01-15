@@ -41,6 +41,9 @@ A small calculator with tkinter
   <img src="img/calculator.png" width="900" title="calculator">
 </p>
 
+## sudoku_checker
+Enter your sudoku and check if it is right <br>
+
 ## text_morse
 Translate text to morse or vice-vera (morse into latin alphabet). <br>
 Hear morse signals (sound, after translation or directly)
