@@ -52,7 +52,7 @@ Hear morse signals (sound, after translation or directly)
 ## Tic-Tac-Toe
 A basic game of Tic-Tac-Toe
 <p align="left">
-  <img src="img/tictactoe_3x3.png" width="500" title="Tic-Tac-Toe">
+  <img src="img/tictactoe_3x3.png" width="400" title="Tic-Tac-Toe">
 </p>
 <br>
 
