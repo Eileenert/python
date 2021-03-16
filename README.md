@@ -49,6 +49,13 @@ Translate text to morse or vice-vera (morse into latin alphabet). <br>
 Hear morse signals (sound, after translation or directly)
 <br>
 
+## Tic-Tac-Toe
+A basic game of Tic-Tac-Toe
+<p align="center">
+  <img src="img/tictactoe_3x3.png" width="900" title="calculator">
+</p>
+<br>
+
 ## ytb_videoDownloader
 To download YouTube videos and its subtitles <br>
 It may be that for some video and subtitle it does not work, if you know why i'd like you to send me a message :)
