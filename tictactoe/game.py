@@ -1,5 +1,4 @@
 import tkinter as tk
-import keyboard
 import data as d
 import function as f
 
