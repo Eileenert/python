@@ -17,7 +17,6 @@ class Interface(tk.Frame):
         self.grid(sticky="")
 
         self.player = 1
-        
 
         self.init_grid()
 
@@ -29,10 +28,10 @@ class Interface(tk.Frame):
         """ init the game """
 
         # data that will need to be reset if the game is reset
-        self.finished = False       
-        self.board = [ [0, 0, 0] ,
-                       [0, 0, 0] ,
-                       [0, 0, 0] ]
+        self.finished = False
+        self.board = [[0, 0, 0],
+                      [0, 0, 0],
+                      [0, 0, 0]]
 
         # put the buttons into an array
         self.grid_cells = []
@@ -78,13 +77,12 @@ class Interface(tk.Frame):
                         self.board[i][j] = d.player1_sign
                     elif self.player == 2:
                         self.board[i][j] = d.player2_sign
-        
+
         # checks if a player has won
         self.finished = f.is_3_aligned(self.board)
 
         # what is displayed if a player wins
         if self.finished == True:
-            print(f"Player {self.player} win!")
             self.grid_cells[1][1].configure(
                 text=f"Player {self.player} win!", fg="#ffffff")
 
