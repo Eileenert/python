@@ -3,6 +3,7 @@ Small python projects
 ## 2048
 inspired by https://github.com/yangshun/2048-python <br>
 It's a solo game by Gabriele Cirulli, released on March 9, 2014. <br>
+I took the original colors of the game but if someone wants to make me a color palette I'm up for it. <br>
 
 <p align="left">
   <img src="img/2048.png" width="400" title="2048">
@@ -33,7 +34,7 @@ Spy game (the rules are explained at the beginning) <br>
 To play with several friends or family members (need at least 4 people).
 <br>
 
-## calculator
+## Calculator
 A small calculator with tkinter
 <br>
 
@@ -41,10 +42,10 @@ A small calculator with tkinter
   <img src="img/calculator.png" width="900" title="calculator">
 </p>
 
-## sudoku_checker
+## Sudoku checker
 Enter your sudoku and check if it is right <br>
 
-## text_morse
+## Text morse
 Translate text to morse or vice-vera (morse into latin alphabet). <br>
 Hear morse signals (sound, after translation or directly)
 <br>
@@ -60,6 +61,6 @@ Hear morse signals (sound, after translation or directly)
 </p>
 <br>
 
-## ytb_videoDownloader
+## Ytb_videoDownloader
 To download YouTube videos and its subtitles <br>
 It may be that for some video and subtitle it does not work, if you know why i'd like you to send me a message :)
