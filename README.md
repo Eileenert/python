@@ -45,6 +45,8 @@ A small calculator with tkinter
 ## Snake
 A Basic snake game
 <br>
+https://www.geeksforgeeks.org/snake-game-in-python-using-pygame-module/
+<br>
 
 <p align="left">
   <img src="img/snake.png" width="300" title="snake">
