@@ -42,6 +42,14 @@ A small calculator with tkinter
   <img src="img/calculator.png" width="900" title="calculator">
 </p>
 
+## Snake
+A Basic snake game
+<br>
+
+<p align="center">
+  <img src="img/snake.png" width="900" title="calculator">
+</p>
+
 ## Sudoku checker
 Enter your sudoku and check if it is right <br>
 
