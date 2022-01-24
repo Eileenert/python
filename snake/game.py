@@ -1,17 +1,49 @@
-
 # importing libraries
 import pygame
 import time
 import random
-import data as d
- 
+import pickle
+from pathlib import Path
+import os
+
+#PATH
+os.chdir("python/snake")
+
+# ----------------------------------------------------------------------------------
+"""variables"""
+
+snake_speed = 8
+
+# Window size
+window_x = 300
+window_y = 200
+
+# initial score
+score = 0
+
+# defining colors
+window_color = (0, 0, 0)
+fruit_color = (255, 0, 0)
+snake_color = (0, 179, 0)
+text_color = (255, 255, 255)
+
+
+try:
+    with open("data", "rb") as file:
+        my_unpickler = pickle.Unpickler(file)
+        record = my_unpickler.load()
+
+except :
+    record = 0
+
+# ----------------------------------------------------------------------------
  
 # Initialising pygame
 pygame.init()
  
 # Initialise game window
 pygame.display.set_caption('Snake')
-game_window = pygame.display.set_mode((d.window_x, d.window_y))
+game_window = pygame.display.set_mode((window_x, window_y))
  
 # FPS (frames per second) controller
 fps = pygame.time.Clock()
@@ -23,8 +55,8 @@ snake_position = [100, 50]
 snake_body = [[100, 50]]
 
 # fruit position
-fruit_position = [random.randrange(1, (d.window_x//10)) * 10,
-                  random.randrange(1, (d.window_y//10)) * 10]
+fruit_position = [random.randrange(1, (window_x//10)) * 10,
+                  random.randrange(1, (window_y//10)) * 10]
  
 fruit_spawn = True
  
@@ -32,41 +64,48 @@ fruit_spawn = True
 direction = 'RIGHT'
 change_to = direction
  
-# initial score
-score = 0
  
 # displaying Score function
-def show_score(choice, color, font, size):
+def show_score_record(choice, color, font, size):
    
     # creating font object score_font
-    score_font = pygame.font.SysFont(font, size)
+    score_record_font = pygame.font.SysFont(font, size)
      
     # create the display surface object
     # score_surface
-    score_surface = score_font.render('Score : ' + str(score), True, color)
+    score_surface = score_record_font.render(f"Score : {score}" , True, color)
+    record_surface = score_record_font.render(f"Record : {record}", True, color)
      
     # create a rectangular object for the text
     # surface object
-    score_rect = score_surface.get_rect()
+    score_rect = score_surface.get_rect(topleft=(5, 1))
+    record_rect = record_surface.get_rect(topleft=(5,20))
      
     # displaying text
     game_window.blit(score_surface, score_rect)
+    game_window.blit(record_surface, record_rect)
  
 # game over function
-def game_over():
-   
+def Game_Over():
+    
+    if score > record :
+        with open("data", "wb") as file:
+            my_pickler = pickle.Pickler(file)
+            my_pickler.dump(score)
+
+
     # creating font object my_font
-    my_font = pygame.font.SysFont('times new roman', 40)
+    my_font = pygame.font.SysFont('times new roman', 25)
      
     # creating a text surface on which text will be drawn
     game_over_surface = my_font.render(
-        'Your Score is : ' + str(score), True, d.text_color)
+        f"score : {score}     Record : {record} ", True, text_color)
      
     # create a rectangular object for the text surface object
     game_over_rect = game_over_surface.get_rect()
      
     # setting position of the text
-    game_over_rect.midtop = (d.window_x/2, d.window_y/4)
+    game_over_rect.midtop = (window_x/2, window_y/4)
      
     # blit will draw the text on screen
     game_window.blit(game_over_surface, game_over_rect)
@@ -74,17 +113,21 @@ def game_over():
     
     time.sleep(2)
 
-    d.game_over = True
+    # deactivating pygame library
+    pygame.quit()
+     
+    # quit the program
+    quit()
     
  
 
 # Main Function
-while not d.game_over:
+while True:
      
     # handling key events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            d.game_over = True
+            Game_Over()
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP:
                 change_to = 'UP'
@@ -128,40 +171,35 @@ while not d.game_over:
         snake_body.pop()
          
     if not fruit_spawn:
-        fruit_position = [random.randrange(1, (d.window_x//10)) * 10,
-                          random.randrange(1, (d.window_y//10)) * 10]
+        fruit_position = [random.randrange(1, (window_x//10)) * 10,
+                          random.randrange(1, (window_y//10)) * 10]
          
     fruit_spawn = True
-    game_window.fill(d.window_color)
+    game_window.fill(window_color)
      
     for pos in snake_body:
-        pygame.draw.rect(game_window, d.snake_color,
+        pygame.draw.rect(game_window, snake_color,
                          pygame.Rect(pos[0], pos[1], 10, 10))
-    pygame.draw.rect(game_window, d.fruit_color, pygame.Rect(
+    pygame.draw.rect(game_window, fruit_color, pygame.Rect(
         fruit_position[0], fruit_position[1], 10, 10))
  
     # Game Over conditions
-    if snake_position[0] < 0 or snake_position[0] > d.window_x-10:
-        game_over()
-    if snake_position[1] < 0 or snake_position[1] > d.window_y-10:
-        game_over()
+    if snake_position[0] < 0 or snake_position[0] > window_x-10:
+        Game_Over()
+    if snake_position[1] < 0 or snake_position[1] > window_y-10:
+        Game_Over()
  
     # Touching the snake body
     for block in snake_body[1:]:
         if snake_position[0] == block[0] and snake_position[1] == block[1]:
-            game_over()
+            Game_Over()
  
     # displaying score countinuously
-    show_score(1, d.text_color, 'times new roman', 20)
+    show_score_record(1, text_color, 'times new roman', 15)
  
     # Refresh game screen
     pygame.display.update()
  
     # Frame Per Second /Refresh Rate
-    fps.tick(d.snake_speed)
+    fps.tick(snake_speed)
 
-# deactivating pygame library
-pygame.quit()
-     
-    # quit the program
-quit()
