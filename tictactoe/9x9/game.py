@@ -125,20 +125,21 @@ class Interface(tk.Frame):
                         self.grid_cells[i][j].configure(
                             state="normal", relief="groove", bg="#0d0c0c")
 
+        # return a board and True or False
+        self.board, self.finished = f.is_a_board_finished(
+            self.board, self.player)
+
         # disable all buttons that the next player shouldn't be playing
         if len(self.board[next_position]) != 1:
             for i in range(9):
                 # check if the big grid isn't marked by a player
                 if len(self.board[i]) != 1:
                     for j in range(9):
+
                         # check that the buttons are not the next to be chosen and that they are not marked
                         if self.grid_cells[i] != self.grid_cells[next_position] and self.board[i][j] == 0:
                             self.grid_cells[i][j].configure(
                                 state="disabled", relief="sunken", bg=d.background_color)
-
-        # return a board and True or False
-        self.board, self.finished = f.is_a_board_finished(
-            self.board, self.player)
 
         counter = 0
         # change the interface board
