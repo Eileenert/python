@@ -12,6 +12,10 @@ def is_a_board_finished(board, player):
 
     is_complete_game_finished = False
 
+    # check if the little boards are finished
+
+
+
     counter = 0
     for lst in board:
         # If the board is not finished check if finished
@@ -33,9 +37,31 @@ def is_a_board_finished(board, player):
             if lst[2] == lst[4] == lst[6] != 0 or lst[0] == lst[4] == lst[8] != 0:
                 board[counter] = sign
                 break
+            
 
+
+            #check if the box is full => draw
+            counter_signs = 0   # if equal to 9 and no alignment there is a draw
+            for i in range(9):
+                # if the box contains a sign add 1 to counter_sign
+                if lst[i] == d.player1_sign or lst[i] == d.player2_sign:
+                    counter_signs +=1
+                    
+                    if counter_signs == 9:
+                        board[counter] = "G"
+
+                    
         counter += 1
+        
+        
 
+
+ 
+
+
+
+    # Check if the big board if finished
+    
     for i in range(0, 9, 3):
         # if a row is completed
         if board[i] == board[i+1] == board[i+2] == sign:
@@ -49,5 +75,8 @@ def is_a_board_finished(board, player):
     # if a diagonal is completed
     if board[2] == board[4] == board[6] == sign or board[0] == board[4] == board[8] == sign:
         is_complete_game_finished = True
+        
+    
+    
 
     return board, is_complete_game_finished

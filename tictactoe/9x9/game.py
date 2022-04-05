@@ -150,10 +150,10 @@ class Interface(tk.Frame):
                 for btn in self.grid_cells[counter]:
                     if i % 2 == 0:
                         btn.configure(text="", bg=d.player1_bg,
-                                      relief="flat", command=0)
+                                      relief="flat", state="disabled", command=0)
                     else:
                         btn.configure(text="", bg=d.background_color,
-                                      relief="flat", command=0)
+                                      relief="flat", state="disabled", command=0)
                     i += 1
 
             elif item == d.player2_sign:
@@ -161,12 +161,19 @@ class Interface(tk.Frame):
                 for btn in self.grid_cells[counter]:
                     if i % 2 != 0:
                         btn.configure(text="", bg=d.player2_bg,
-                                      relief="flat", command=0)
+                                      relief="flat", state="disabled", command=0)
                     else:
                         btn.configure(text="", bg=d.background_color,
-                                      relief="flat", command=0)
+                                      relief="flat", state="disabled", command=0)
                     i += 1
+      
 
+            #ICI JE DOIS GRISER LES CASES EN CAS DE MATCH NUL
+            elif item == "G":
+                for btn in self.grid_cells[counter]:
+                     btn.configure(bg="#d9d9d9", relief="flat", state="disabled", command=0)
+
+            
             counter += 1
 
         # If the game is entirely over
